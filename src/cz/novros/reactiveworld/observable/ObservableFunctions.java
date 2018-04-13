@@ -1,4 +1,4 @@
-package cz.novros.reactiveworld;
+package cz.novros.reactiveworld.observable;
 
 import cz.novros.reactiveworld.observer.PrintObserver;
 import io.reactivex.Observable;
