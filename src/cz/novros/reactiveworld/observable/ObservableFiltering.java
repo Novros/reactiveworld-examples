@@ -22,6 +22,7 @@ public class ObservableFiltering {
 		take();
 		takeLast();
 		debounce();
+		debounceOneValue();
 		distinct();
 		filter();
 		ignoreElements();
@@ -111,6 +112,22 @@ public class ObservableFiltering {
 		Thread.sleep(110);
 		observable.onNext(5);
 		Thread.sleep(110);
+		observable.onNext(6);
+		observable.onNext(7);
+		observable.onComplete();
+	}
+
+	private static void debounceOneValue() throws InterruptedException {
+		System.out.println("--- Debounce one value");
+		Subject<Integer> observable = PublishSubject.create();
+		observable.onNext(1);
+		observable.onNext(2);
+		observable.debounce(100, TimeUnit.MILLISECONDS).subscribe(new PrintObserver());
+		observable.onNext(3);
+		Thread.sleep(90);
+		observable.onNext(4);
+		observable.onNext(5);
+		Thread.sleep(90);
 		observable.onNext(6);
 		observable.onNext(7);
 		observable.onComplete();
