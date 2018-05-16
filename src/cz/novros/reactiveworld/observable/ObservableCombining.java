@@ -140,15 +140,16 @@ public class ObservableCombining {
 		errorObservable.onError(new IllegalArgumentException());
 		errorObservable.onNext(3);
 		errorObservable.onNext(4);
+		errorObservable.onComplete();
 
 		System.out.println("- delayError - true");
 		final Subject<Integer> errorObservable2 = PublishSubject.create();
-		errorObservable2.zipWith(observableB, zipper).subscribe(new PrintObserver());
-		errorObservable2.zipWith(observableB, zipper, true).subscribe(new PrintObserver("delayError=true"));
+		observableB.zipWith(errorObservable2, zipper, true).subscribe(new PrintObserver("delayError=true"));
 		errorObservable2.onNext(2);
 		errorObservable2.onError(new IllegalArgumentException());
 		errorObservable2.onNext(3);
 		errorObservable2.onNext(4);
+		errorObservable2.onComplete();
 	}
 
 	private static void combineLatest() {
